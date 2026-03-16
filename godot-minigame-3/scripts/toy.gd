@@ -13,27 +13,35 @@ func _ready() -> void:
 	_sprite.modulate = Color(0.0, 0.0, 1.0)
 	
 func _process(_delta: float) -> void:
+	@warning_ignore("unused_variable")
 	var x = global_transform.origin.x
+	@warning_ignore("unused_variable")
 	var y = global_transform.origin.y
 	
 	# minigame step 7
-	# if x > 0 && y > 0:
-	# 	%Tilemaps._highlightLowerRight()
-	
+	if x > 0 && y > 0:
+		%Tilemaps._highlightLowerRight()
+	elif x > 0  && y < 0:
+		%Tilemaps._highlightUpperRight()
+	elif x < 0 && y > 0:
+		%Tilemaps._highlightLowerLeft()
+	elif x < 0 && y < 0:
+		%Tilemaps._highlightUpperLeft()
 	
 
 func _on_body_entered(_body: Node) -> void:
 	# minigame step 2
 	_bounces += 1
-	# %UI._update_Bounces(_bounces)
+	%UI._update_Bounces(_bounces)
 	
 	# minigame step 4 (uncomment)
-	# var c = _create_Color(_bounces)
-	# _sprite.modulate = c
+	var c = _create_Color(_bounces)
+	_sprite.modulate = c
 	
-	# minigame step 6 (uncomment)
-	# %UI._update_Color(c.r, c.g, c.b)
-		
+	# minigame step 6 
+	%UI._update_color(c.r, c.g, c.b)
+	
+	
 func _create_Color(bounces: int) -> Color:
 	var r = 0.0
 	var g = 0.0
@@ -41,8 +49,20 @@ func _create_Color(bounces: int) -> Color:
 	
 	# minigame step 3
 	# write your if statments below this comment
+	if bounces < 5:
+		r = 2.9
+	elif bounces < 10:
+		g = 6.73
+	elif bounces < 15:
+		b = 100.8
+	elif bounces < 20:
+		r = 3.7
+		g = 3.9
+	elif bounces >= 25:
+		r = 2.5
+		g = 4.0
+		b = 3.1
 	
-		
 	return Color(r, g, b)
 	
 # playground 5
@@ -54,11 +74,38 @@ func _add(a: int, b: int) -> int:
 func _playground() -> void:
 	# playground 1
 	var message = "Hello world!"
+	print(message)
 	
-
+	# playground 2
+	var seconds = 12.5
+	message = "seconds = %f" % seconds
+	print(message)
+	
+	# playground 3
+	message = "seconds = %.1f" % seconds
+	print(message)
+	
+	# playground 4 
+	var x = 1.0
+	var y = 3.4
+	var z = 20.5
+	message = "position = (%.1f, %.1f, %.1f)" % [x, y, z]
+	print(message)
+	
+	# playground 6 
+	var v1 = 4
+	var v2 = 3
+	var sum_1_2 = _add(v1, v2)
+	print("sum: %s" % sum_1_2)
+	
+	# playground 7 
+	sum_1_2 = _add(10,2)
+	print("second sum: %s" % sum_1_2)
+	
+	# playground 9
+	_print_name("Issac")
+	
 # playground 8
-# put ya func here
-
-
-# playground 11
-# put ya func here
+func _print_name(n) -> void:
+	print("your name is: %s" % n)
+	
